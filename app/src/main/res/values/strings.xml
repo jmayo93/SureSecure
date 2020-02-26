@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SureSecure</string>
+    <string name="title">SureSecure</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_pass_hint">Password</string>
+    <string name="login_Btn">Login</string>
+    <string name="signup_click_text">Sign up</string>
+    <string name="forgotPW_click_text">Forgot Password</string>
+    <string name="welcome">Welcome!</string>
+    <string name="please_enter_info">Please enter your information below</string>
+    <string name="signup_email_hint">Email</string>
+    <string name="signup_pass_hint">Password</string>
+    <string name="signup_pass_hint2">Re-enter Password</string>
+    <string name="phone">PhoneNumber</string>
+    <string name="phone_message">Phone Number will be used to send one time code</string>
+    <string name="signup_next_Btn">Next</string>
+    <string name="verification">Verification</string>
+    <string name="verify_message">Please enter the verification code we sent to your phone</string>
+    <string name="verify_code">verification code</string>
+    <string name="verify_next_Btn">Next</string>
+</resources>
