@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         signup_text.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //sets signup to go to sign up screen when clicked
                 Intent signup_screen = new Intent(getApplicationContext(), signup_screen.class);
                 startActivity(signup_screen);
             }
@@ -30,20 +30,23 @@ public class MainActivity extends AppCompatActivity {
 
         FP_text.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //sets forgot password to go to forgot password screem when clicked
                 Intent PWrecover_Screen = new Intent(getApplicationContext(), PWrecover_screen.class);
                 startActivity(PWrecover_Screen);
             }
         });
 
-        login_Btn.setOnClickListener(new View.OnClickListener() {
+        login_Btn.setOnClickListener(new View.OnClickListener() { //when login button clicked
             @Override
             public void onClick(View v) {
+                //takes in email and password
                 EditText signin_email = (EditText) findViewById(R.id.signin_email);
                 EditText signin_pass = (EditText) findViewById(R.id.signin_pass);
 
-                String user = signin_email.getText().toString();
+                //puts email and password into these strings for now
+                String email = signin_email.getText().toString();
                 String pass = signin_pass.getText().toString();
+                //takes user to app home screen
                 Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
                 startActivity(home_screen);
             }
