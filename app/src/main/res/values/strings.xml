@@ -18,4 +18,7 @@
     <string name="verify_message">Please enter the verification code we sent to your phone</string>
     <string name="verify_code">verification code</string>
     <string name="verify_next_Btn">Next</string>
+    <string name="success">Success!</string>
+    <string name="success_message1">Your number is registered for two step authentication</string>
+    <string name="continue_Btn">Continue</string>
 </resources>
