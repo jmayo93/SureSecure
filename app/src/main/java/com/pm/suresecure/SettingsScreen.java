@@ -7,19 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class home_screen extends AppCompatActivity {
+public class SettingsScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
-        Button settings_button = findViewById(R.id.settings_button);
+        setContentView(R.layout.activity_settings_screen2);
+        Button homeButton = findViewById(R.id.homeButton);
 
-        settings_button.setOnClickListener(new View.OnClickListener() {
+        homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent SettingsScreen = new Intent(getApplicationContext(), SettingsScreen.class);
-                startActivity(SettingsScreen);
+                Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                startActivity(home_screen);
             }
         });
     }

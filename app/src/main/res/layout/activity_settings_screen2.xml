@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsScreen">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="409dp"
+        android:layout_height="601dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pageTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Application Account Settings"
+            android:textIsSelectable="true"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/deleteMasterAccount"
+            android:layout_width="447dp"
+            android:layout_height="wrap_content"
+            android:text="Delete Master Account" />
+
+        <Button
+            android:id="@+id/changeMasterPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Master Password" />
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/changeEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="change email" />
+
+        <Button
+            android:id="@+id/changePhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Mobile Number" />
+
+        <Button
+            android:id="@+id/biometricsSetup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Set Biometrics" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
