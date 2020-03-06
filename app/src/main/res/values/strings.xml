@@ -21,7 +21,7 @@
     <string name="success">Success!</string>
     <string name="success_message1">Your number is registered for two step authentication</string>
     <string name="continue_Btn">Continue</string>
-    //string name="title_activity_settings_screen">SettingsScreen/string>
+    <string name="title_activity_settings_screen">SettingsScreen</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -111,5 +111,5 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    /** string name="action_settings">Settings/string> **/
+    <string name="action_settings">Settings</string>
 </resources>
