@@ -10,12 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    DatabaseHelper myDb;
+    //DatabaseHelper myDb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDb = new DatabaseHelper(this);
+       // myDb = new DatabaseHelper(this);
 
         TextView signup_text = findViewById(R.id.signup_text);
         TextView FP_text = findViewById(R.id.FP_text);
@@ -53,4 +53,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 }

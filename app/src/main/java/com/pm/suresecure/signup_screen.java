@@ -11,14 +11,14 @@ import android.widget.Toast;
 
 public class signup_screen extends AppCompatActivity {
 
-    DatabaseHelper myDb;
+    //DatabaseHelper myDb;
     EditText addEmail, addPassword, addPhone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_screen);
-        myDb = new DatabaseHelper(this);
-        createUser();
+       // myDb = new DatabaseHelper(this);
+        //createUser();
 
         Button next_Btn = (Button)findViewById(R.id.next_Btn);
         addEmail = (EditText)findViewById(R.id.signup_email);
@@ -45,9 +45,9 @@ public class signup_screen extends AppCompatActivity {
                 startActivity(confirm_page);
             }
         });
-        createUser();
+        /*createUser();
     }
-    public void createUser(){
+   /* public void createUser(){
         Button next_Btn = (Button)findViewById(R.id.next_Btn);
         next_Btn.setOnClickListener(
                 new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class signup_screen extends AppCompatActivity {
                         startActivity(home_screen);
                     }
                 }
-        );
+        );*/
     }
 
 }
