@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:text="Settings"
+        android:textColor="#edf0f5"
+        android:background="#4267b2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

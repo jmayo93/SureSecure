@@ -36,6 +36,8 @@
         android:layout_width="115dp"
         android:layout_height="68dp"
         android:text="@string/continue_Btn"
+        android:textColor="#edf0f5"
+        android:background="#4267b2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
