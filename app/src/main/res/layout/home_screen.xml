@@ -17,27 +17,24 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ListView
-        android:id="@+id/password_list"
-        android:layout_width="405dp"
-        android:layout_height="332dp"
-        android:entries="@array/passwords"
-        app:layout_constraintBottom_toTopOf="@+id/settings_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791" />
-
     <TextView
         android:id="@+id/addNewPass"
         android:layout_width="283dp"
         android:layout_height="127dp"
         android:text="@string/addNewPass"
         android:textSize="45sp"
-        app:layout_constraintBottom_toTopOf="@+id/password_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.757"
+        app:layout_constraintHorizontal_bias="0.718"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accounts_recyclerView"
+        android:layout_width="409dp"
+        android:layout_height="381dp"
+        android:addStatesFromChildren="false"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

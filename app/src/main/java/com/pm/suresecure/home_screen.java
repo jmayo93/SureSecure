@@ -1,24 +1,46 @@
 package com.pm.suresecure;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-public class home_screen extends AppCompatActivity{
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
+
+public class home_screen extends AppCompatActivity{
+    private static final String TAG = "home_screen";
+
+    Database db;
+    ArrayList<String> mNames = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /**mNames.add("Petunia");
+        mNames.add("Cauliflower");
+        mNames.add("horticulture");
+        mNames.add("Petunia");
+        mNames.add("Cauliflower");
+        mNames.add("horticulture");
+        mNames.add("Petunia");
+        mNames.add("Cauliflower");
+        mNames.add("horticulture");
+        mNames.add("Petunia");
+        mNames.add("Cauliflower");
+        mNames.add("horticulture");**/
+        db = new Database(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
         Button settings_button = findViewById(R.id.settings_button);
         TextView addNewPass = findViewById(R.id.addNewPass);
+        Log.d(TAG, "onCreate: started.");
 
         addNewPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,8 +57,16 @@ public class home_screen extends AppCompatActivity{
                 startActivity(SettingsScreen);
             }
         });
-
         //ListView password_list = findViewById(R.id.password_list);
+        initRecyclerView();
+    }
+    private void initRecyclerView(){
+        mNames.addAll(db.returnList());
+        Log.d(TAG, "initRecyclerView: init recyclerview");
+        RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
 

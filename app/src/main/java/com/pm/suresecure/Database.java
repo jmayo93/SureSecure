@@ -2,10 +2,13 @@ package com.pm.suresecure;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper {
     public static final String ACCOUNTS_DB = "Yew.db";
@@ -39,7 +42,6 @@ public class Database extends SQLiteOpenHelper {
                 //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
         //Table to store master info
         db.execSQL("CREATE TABLE MASTER (USER_NAME TEXT, PASSWORD TEXT, PHONE_NUM TEXT, EMAIL TEXT, IP TEXT, CREAT_DATE TEXT)");
-
     }
 
     @Override
@@ -75,5 +77,40 @@ public class Database extends SQLiteOpenHelper {
         else
             return false;
 
+    }
+    //Query Database by username and return Value that you need
+    public String getValues(String user, String need){
+        //only need to read from database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String whatINeeded;
+        //get all values from table if user name exists
+        Cursor getThis = db.rawQuery("SELECT "+ need +  "  FROM " + M_TABLE_NAME + " WHERE USER_NAME = '" + user + "'" , null);
+        //move cursor to the first value, otherwise it's positioned at -1 causing errors
+        getThis.moveToFirst();
+        //store the value of a requested column as a string
+        //inner function returns index via string argument
+        //outer function returns string via int (the index of the column in table) argument
+        whatINeeded = getThis.getString(getThis.getColumnIndex(need));
+        return whatINeeded;
+    }
+    public ArrayList<String> returnList(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor theGoods = db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME,  null);
+        theGoods.moveToFirst();
+        ArrayList<String> finishedProduct = new ArrayList<>();
+        int i;
+        /**
+        for(theGoods.moveToFirst(); !theGoods.isAfterLast(); theGoods.moveToNext()){
+            finishedProduct.add(theGoods.getString(i));
+            System.out.println(theGoods.getString(i));
+            i++;
+        }**/
+
+        for(i = 0; !theGoods.isAfterLast(); i++)
+        {
+            finishedProduct.add(theGoods.getString(theGoods.getColumnIndex(COL_2)));
+            theGoods.moveToNext();
+        }
+        return finishedProduct;
     }
 }
