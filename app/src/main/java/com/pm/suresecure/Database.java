@@ -36,7 +36,7 @@ public class Database extends SQLiteOpenHelper {
         //table to store seperate accounts user wants to save
         db.execSQL("CREATE TABLE ACCOUNTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT TEXT, USER_NAME TEXT, PASSWORD TEXT, URL TEXT, CREAT_DATE TEXT)");
         //db.execSQL("CREATE TABLE " + ACCOUNTS_DB + " ("+ COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
+        //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
         //Table to store master info
         db.execSQL("CREATE TABLE MASTER (USER_NAME TEXT, PASSWORD TEXT, PHONE_NUM TEXT, EMAIL TEXT, IP TEXT, CREAT_DATE TEXT)");
 
@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
     public boolean insertMasterData(String userName,String email, String pw, String phoneNum)  {
-        SQLiteDatabase db = this.getWritableDatabase(); 
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues M_record = new ContentValues();
         M_record.put(M_COL_1, userName);
         M_record.put(M_COL_2, pw);

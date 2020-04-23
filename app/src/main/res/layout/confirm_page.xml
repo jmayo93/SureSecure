@@ -11,8 +11,6 @@
         android:layout_width="215dp"
         android:layout_height="67dp"
         android:text="@string/verification"
-        android:background="#3b5998"
-        android:textColor="#edf0f5"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/verify_message_text"
         app:layout_constraintEnd_toEndOf="parent"

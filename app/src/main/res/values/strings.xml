@@ -33,6 +33,6 @@
     <string name="name_addPass_hint">Name</string>
     <string name="addPass_URL">URL</string>
     <string name="addPass_password">Password</string>
-    <string name="addPass_addNew">Add New Password</string>
+    <string name="addPass_addNew">Add Password</string>
     <string name="addNewPass">+ Add New Password</string>
 </resources>

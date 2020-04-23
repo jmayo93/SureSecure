@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView signup_text = findViewById(R.id.signup_text);
         TextView FP_text = findViewById(R.id.FP_text);
-        Button login_Btn = findViewById(R.id.Login_Btn);
+        Button login_Btn = findViewById(R.id.login_Btn);
 
         signup_text.setOnClickListener(new View.OnClickListener() {
             @Override
