@@ -39,7 +39,7 @@
         android:layout_marginBottom="32dp"
         android:autoText="false"
         android:ems="10"
-        android:hint="@string/login_email_hint"
+        android:hint="User Name"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/signin_pass"
         app:layout_constraintEnd_toEndOf="parent"

@@ -14,14 +14,13 @@ public class MainActivity extends AppCompatActivity {
 
     //declare 'Database variable'
     Database myDb;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //create new instance of a database
         myDb = new Database(this);
-
+        System.out.println("Test");
         TextView signup_text = findViewById(R.id.signup_text);
         TextView FP_text = findViewById(R.id.FP_text);
         Button login_Btn = findViewById(R.id.login_Btn);
@@ -54,11 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 // check to see if there is a username in the field
                 if (userName.isEmpty() == true) {
                     Toast.makeText(MainActivity.this, "User Name is empty", Toast.LENGTH_SHORT).show();
-                //check to see if there is a password in the field
+                    //check to see if there is a password in the field
                 } else if (pw.isEmpty() == true) {
                     Toast.makeText(MainActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
                 } else {
-                    System.out.println("The values are :" + pw + " and " + userName + ".");
                     //takes in email and password
                     EditText signin_email = (EditText) findViewById(R.id.signin_email);
                     EditText signin_pass = (EditText) findViewById(R.id.signin_pass);
@@ -66,11 +64,19 @@ public class MainActivity extends AppCompatActivity {
                     //puts email and password into these strings for now
                     String email = signin_email.getText().toString();
                     String pass = signin_pass.getText().toString();
-                    //takes user to app home screen
-                    Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
-                    startActivity(home_screen);
+                    try {
+                        if (pass.equals(myDb.getValues(email, "PASSWORD")) == false) {
+                            Toast.makeText(MainActivity.this, "Wrong password, \n please try again.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            //takes user to app home screen
+                            Toast.makeText(MainActivity.this, "Correct Password", Toast.LENGTH_SHORT).show();
+                            Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                            startActivity(home_screen);
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, "Something went wrong \n Are you using the correct user name?\n Please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
-    }
-}
+    }}
