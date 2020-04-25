@@ -105,7 +105,7 @@ public class Database extends SQLiteOpenHelper {
             System.out.println(theGoods.getString(i));
             i++;
         }**/
-
+        //loop through cursor item and add each item to the Array<String> list
         for(i = 0; !theGoods.isAfterLast(); i++)
         {
             finishedProduct.add(theGoods.getString(theGoods.getColumnIndex(COL_2)));

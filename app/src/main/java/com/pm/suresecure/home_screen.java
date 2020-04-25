@@ -23,9 +23,6 @@ public class home_screen extends AppCompatActivity{
     ArrayList<String> mNames = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /**mNames.add("Petunia");
-        mNames.add("Cauliflower");
-        mNames.add("horticulture");
         mNames.add("Petunia");
         mNames.add("Cauliflower");
         mNames.add("horticulture");
@@ -34,7 +31,10 @@ public class home_screen extends AppCompatActivity{
         mNames.add("horticulture");
         mNames.add("Petunia");
         mNames.add("Cauliflower");
-        mNames.add("horticulture");**/
+        mNames.add("horticulture");
+        mNames.add("Petunia");
+        mNames.add("Cauliflower");
+        mNames.add("horticulture");
         db = new Database(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);

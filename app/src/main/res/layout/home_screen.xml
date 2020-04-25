@@ -33,7 +33,7 @@
         android:layout_width="409dp"
         android:layout_height="381dp"
         android:addStatesFromChildren="false"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/settings_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
