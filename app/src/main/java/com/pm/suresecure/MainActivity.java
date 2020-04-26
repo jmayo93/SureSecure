@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     String email = signin_email.getText().toString();
                     String pass = signin_pass.getText().toString();
                     try {
-                        if (pass.equals(myDb.getValues(email, "PASSWORD")) == false) {
+                        if (pass.equals(myDb.getUserValues(email, "PASSWORD")) == false) {
                             Toast.makeText(MainActivity.this, "Wrong password, \n please try again.", Toast.LENGTH_SHORT).show();
                         } else {
                             //takes user to app home screen

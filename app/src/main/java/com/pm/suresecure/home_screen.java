@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,18 +24,6 @@ public class home_screen extends AppCompatActivity{
     ArrayList<String> mNames = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /**mNames.add("Petunia");
-        mNames.add("Cauliflower");
-        mNames.add("horticulture");
-        mNames.add("Petunia");
-        mNames.add("Cauliflower");
-        mNames.add("horticulture");
-        mNames.add("Petunia");
-        mNames.add("Cauliflower");
-        mNames.add("horticulture");
-        mNames.add("Petunia");
-        mNames.add("Cauliflower");
-        mNames.add("horticulture");**/
         db = new Database(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
@@ -62,7 +51,6 @@ public class home_screen extends AppCompatActivity{
     }
     private void initRecyclerView(){
         mNames.addAll(db.returnList());
-        Log.d(TAG, "initRecyclerView: init recyclerview");
         RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
         recyclerView.setAdapter(adapter);

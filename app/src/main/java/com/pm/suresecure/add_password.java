@@ -32,12 +32,13 @@ public class add_password extends AppCompatActivity {
                 EditText addPass_URL = findViewById(R.id.addPass_URL);
                 EditText addPass_UsrName = findViewById(R.id.addPass_UsrName);
                 EditText addPass_password = findViewById(R.id.addPass_password);
+                EditText addPass_password2 = findViewById(R.id.addPass_password2);
 
                 entry_name[0] = addPass_name.getText().toString();
                 web_name[0] = addPass_URL.getText().toString();
                 web_usrName[0] = addPass_UsrName.getText().toString();
                 web_pass[0] = addPass_password.getText().toString();
-               // web_passCheck[0] = addPass_password2.getText().toString();
+                web_passCheck[0] = addPass_password2.getText().toString();
 
                 createAccountInstance();
 

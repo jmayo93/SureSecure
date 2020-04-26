@@ -79,12 +79,27 @@ public class Database extends SQLiteOpenHelper {
 
     }
     //Query Database by username and return Value that you need
-    public String getValues(String user, String need){
+    public String getUserValues(String user, String need){
         //only need to read from database
         SQLiteDatabase db = this.getReadableDatabase();
         String whatINeeded;
         //get all values from table if user name exists
         Cursor getThis = db.rawQuery("SELECT "+ need +  "  FROM " + M_TABLE_NAME + " WHERE USER_NAME = '" + user + "'" , null);
+        //move cursor to the first value, otherwise it's positioned at -1 causing errors
+        getThis.moveToFirst();
+        //store the value of a requested column as a string
+        //inner function returns index via string argument
+        //outer function returns string via int (the index of the column in table) argument
+        whatINeeded = getThis.getString(getThis.getColumnIndex(need));
+        return whatINeeded;
+    }
+
+    public String getPassValues(String site, String need){
+        //only need to read from database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String whatINeeded;
+        //get all values from table if user name exists
+        Cursor getThis = db.rawQuery("SELECT "+ need +  "  FROM " + TABLE_NAME + " WHERE ACCOUNT = '" + site + "'" , null);
         //move cursor to the first value, otherwise it's positioned at -1 causing errors
         getThis.moveToFirst();
         //store the value of a requested column as a string

@@ -10,14 +10,17 @@
         android:id="@+id/settings_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="383dp"
         android:layout_marginBottom="44dp"
+        android:background="#4267b2"
         android:text="Settings"
         android:textColor="#edf0f5"
-        android:background="#4267b2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addNewPass"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/addNewPass"
@@ -25,18 +28,21 @@
         android:layout_height="127dp"
         android:text="@string/addNewPass"
         android:textSize="45sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.718"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.004" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accounts_recyclerView"
         android:layout_width="409dp"
         android:layout_height="381dp"
         android:addStatesFromChildren="false"
-        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/settings_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
