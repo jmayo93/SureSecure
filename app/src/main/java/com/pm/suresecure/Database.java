@@ -28,6 +28,9 @@ public class Database extends SQLiteOpenHelper {
     public static final String M_COL_4= "EMAIL" ;
     public static final String M_COL_5= "IP_ADDRESS" ;
     public static final String M_COL_6= "CREAT_DATE" ;
+    public static final String M_COL_7= "Q1" ;
+    public static final String M_COL_8= "A1" ;
+
     public Database(@Nullable Context context) {
         //use function from parent class
         super(context, ACCOUNTS_DB,null, 1);
@@ -39,9 +42,9 @@ public class Database extends SQLiteOpenHelper {
         //table to store seperate accounts user wants to save
         db.execSQL("CREATE TABLE ACCOUNTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT TEXT, USER_NAME TEXT, PASSWORD TEXT, URL TEXT, CREAT_DATE TEXT)");
         //db.execSQL("CREATE TABLE " + ACCOUNTS_DB + " ("+ COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
+        //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
         //Table to store master info
-        db.execSQL("CREATE TABLE MASTER (USER_NAME TEXT, PASSWORD TEXT, PHONE_NUM TEXT, EMAIL TEXT, IP TEXT, CREAT_DATE TEXT)");
+        db.execSQL("CREATE TABLE MASTER (USER_NAME TEXT, PASSWORD TEXT, PHONE_NUM TEXT, EMAIL TEXT, IP TEXT, CREAT_DATE TEXT, Q1 TEXT, A1 TEXT)");
     }
 
     @Override
@@ -49,13 +52,16 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
-    public boolean insertMasterData(String userName,String email, String pw, String phoneNum)  {
-        SQLiteDatabase db = this.getWritableDatabase(); 
+    public boolean insertMasterData(String userName,String email, String pw, String phoneNum, String Q1, String A1)  {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues M_record = new ContentValues();
         M_record.put(M_COL_1, userName);
         M_record.put(M_COL_2, pw);
         M_record.put(M_COL_3, phoneNum);
         M_record.put(M_COL_4, email);
+        M_record.put(M_COL_7, Q1);
+        M_record.put(M_COL_8, A1);
+
         long M_answer = db.insert(M_TABLE_NAME, null, M_record);
         if(M_answer > 0)
             return true;
@@ -108,6 +114,44 @@ public class Database extends SQLiteOpenHelper {
         whatINeeded = getThis.getString(getThis.getColumnIndex(need));
         return whatINeeded;
     }
+
+    public String getSecQuestion(String username){
+        //only need to read from database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String secQuestion;
+        //Query the Master Table, return the Q1 value for the selected username.
+        Cursor getThis = db.rawQuery("SELECT Q1 FROM MASTER WHERE USER_NAME ='" +username +"'", null);
+        //move cursor to the first value, otherwise it's positioned at -1 causing errors
+        getThis.moveToFirst();
+        //store the value of a requested column as a string
+        //inner function returns index via string argument
+        //outer function returns string via int (the index of the column in table) argument
+        secQuestion = getThis.getString(getThis.getColumnIndex("Q1"));
+        return secQuestion;
+    }
+
+    public String getSecAnswer(String username){
+        //only need to read from database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String secAnswer;
+        //Query the Master Table, return the Q1 value for the selected username.
+        Cursor getThis = db.rawQuery("SELECT A1 FROM MASTER WHERE USER_NAME ='" +username +"'", null);
+        //move cursor to the first value, otherwise it's positioned at -1 causing errors
+        getThis.moveToFirst();
+        //store the value of a requested column as a string
+        //inner function returns index via string argument
+        //outer function returns string via int (the index of the column in table) argument
+        secAnswer = getThis.getString(getThis.getColumnIndex("A1"));
+        return secAnswer;
+    }
+
+    public void RecoverPassword(String username, String newPass){
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Query the MASTER table, update the password columns where the username matches the one provided.
+        db.execSQL("UPDATE MASTER SET PASSWORD='" + newPass + "' WHERE USER_NAME ='" +username +"'");
+    }
+
+
     public ArrayList<String> returnList(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor theGoods = db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME,  null);
@@ -115,11 +159,11 @@ public class Database extends SQLiteOpenHelper {
         ArrayList<String> finishedProduct = new ArrayList<>();
         int i;
         /**
-        for(theGoods.moveToFirst(); !theGoods.isAfterLast(); theGoods.moveToNext()){
-            finishedProduct.add(theGoods.getString(i));
-            System.out.println(theGoods.getString(i));
-            i++;
-        }**/
+         for(theGoods.moveToFirst(); !theGoods.isAfterLast(); theGoods.moveToNext()){
+         finishedProduct.add(theGoods.getString(i));
+         System.out.println(theGoods.getString(i));
+         i++;
+         }**/
 
         for(i = 0; !theGoods.isAfterLast(); i++)
         {

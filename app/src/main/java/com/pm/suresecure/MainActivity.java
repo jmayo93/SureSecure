@@ -4,11 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //start the websocket server
+        startServer();
+
         //create new instance of a database
         myDb = new Database(this);
         System.out.println("Test");
@@ -36,8 +47,18 @@ public class MainActivity extends AppCompatActivity {
         FP_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //sets forgot password to go to forgot password screen when clicked
-                Intent PWrecover_Screen = new Intent(getApplicationContext(), PWrecover_screen.class);
-                startActivity(PWrecover_Screen);
+                Intent PWrecover_Screen = new Intent(getApplicationContext(), PWrecover_screen.class);      //Declare our new intent
+
+                EditText username_input = findViewById(R.id.signin_email);  //Find the username input field
+                if(username_input.getText().toString().isEmpty()){                                  //If the username is left blank, we cant continue and must alert the user
+                    Toast.makeText(MainActivity.this, "username is empty", Toast.LENGTH_SHORT).show();
+                }
+                else{                                                                               //Otherwise, the username isnt blank so we can continue.
+                    String username = username_input.getText().toString();                          //Get its current value and store it as a string -- so we can pass it to Forgot Password screen
+                    PWrecover_Screen.putExtra("username",username);                          //Then we can add that information to our intent (to pass it)
+                    startActivity(PWrecover_Screen);                                                //Go to the PW_Recover_Screen
+                }
+
             }
         });
         login_Btn.setOnClickListener(new View.OnClickListener() { //when login button clicked
@@ -79,4 +100,46 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }}
+    }
+
+
+    private static final String TAG = "MyApplication";
+    private static final int SERVER_PORT = 12345;
+
+    private MySocketServer mServer;
+
+
+    private void startServer() {
+        InetAddress inetAddress = getInetAddress();
+        if (inetAddress == null) {
+            Log.e(TAG, "Unable to lookup IP address");
+            return;
+        }
+
+        mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT));
+        mServer.start();
+    }
+
+    private static InetAddress getInetAddress() {
+        try {
+            for (Enumeration en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface networkInterface = (NetworkInterface) en.nextElement();
+
+                for (Enumeration enumIpAddr = networkInterface.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = (InetAddress) enumIpAddr.nextElement();
+
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        return inetAddress;
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Error getting the network interface information");
+        }
+
+        return null;
+    }
+
+
+}
