@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 public class PWrecover_screen extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +52,7 @@ public class PWrecover_screen extends AppCompatActivity {
                     //Then we want to move onto the  update password page.
                     Intent changePass = new Intent(getApplicationContext(), changePass.class);      //Declare our new intent
                     changePass.putExtra("username",username);                          //We have to pass the username
+                    finish();
                     startActivity(changePass);                                                //Go to the changePass screen
 
                 }

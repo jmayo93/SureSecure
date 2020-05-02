@@ -3,7 +3,9 @@ package com.pm.suresecure;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,9 +26,15 @@ public class home_screen extends AppCompatActivity{
     ArrayList<String> mNames = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        Intent intent=getIntent();  //Get the current intent
+        final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
+
         db = new Database(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
+
         Button settings_button = findViewById(R.id.settings_button);
         TextView addNewPass = findViewById(R.id.addNewPass);
         Log.d(TAG, "onCreate: started.");
@@ -35,6 +43,7 @@ public class home_screen extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent add_pass_screen = new Intent(getApplicationContext(), add_password.class);
+                finish();
                 startActivity(add_pass_screen);
             }
         });
@@ -43,6 +52,8 @@ public class home_screen extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent SettingsScreen = new Intent(getApplicationContext(), SettingsScreen.class);
+                SettingsScreen.putExtra("username",username);
+                finish();
                 startActivity(SettingsScreen);
             }
         });

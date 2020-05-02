@@ -1,8 +1,11 @@
 package com.pm.suresecure;
 
+import android.util.Log;
+
 import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import org.json.JSONObject;
 
 import java.net.InetSocketAddress;
 
@@ -33,6 +36,35 @@ public class MySocketServer extends WebSocketServer {
 
     @Override
     public void onMessage(WebSocket conn, String message) {
+
+        /*So this is where all the magic happens
+        At this point weve recieved JSON containing the url.
+        We need to parse that json into something useful
+        then lookup the url in the database
+        get any matching credentials
+        and then form them into a json array
+        and send it back to the client.
+
+         */
+        message = message.replaceAll("\\[","").replaceAll("\\]","");    //Before we can convert to a JSON object we have to strip the square brackets []
+
+        try{
+            JSONObject reader = new JSONObject(message);                                            //Convert the incomming message to JSON Object
+            String url = reader.getString("url");                                             //Get the value from the JSON Object
+            url = url.replaceAll("www.","");                                      //We only want the base url, so strip the www part
+            System.out.println(url);
+
+        }
+        catch(Throwable t){                                                                         //Catch any errors converting message to JSON Object
+            Log.e("My App", "Could not parse malformed JSON");
+        }
+        //Now we have the url, we can perform the database query by forming a connection and using db.getCredentials(String URL) -- returns a JSONArray which we can then send
+
+
+
+
+
+
         System.out.println(message);
         //mSocket.send(message);                                //replies to the client with their own message (echo)
         String url = "[{\"url\":\"www.linkedin.com\"}]";        //Hardcode our urls to look for

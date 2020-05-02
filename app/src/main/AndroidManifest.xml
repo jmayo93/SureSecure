@@ -3,6 +3,7 @@
     package="com.pm.suresecure">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".changePass"></activity>
+        <activity android:name=".changePhone"></activity>
+        <activity android:name=".changeEmail" />
+        <activity android:name=".changePass" />
         <activity android:name=".password_info_screen" />
         <activity android:name=".add_password" />
         <activity android:name=".SettingsScreen" />

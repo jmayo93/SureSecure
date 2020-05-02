@@ -20,6 +20,15 @@ import java.util.Enumeration;
 
 public class MainActivity extends AppCompatActivity {
 
+    @Override
+    public void onBackPressed() {
+        Log.e("MyApp","back button pressed");
+        Toast.makeText(this, "exiting", Toast.LENGTH_SHORT).show();
+        finish();
+        System.exit(0);
+
+    }
+
     //declare 'Database variable'
     Database myDb;
     @Override
@@ -40,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) { //sets signup to go to sign up screen when clicked
                 Intent signup_screen = new Intent(getApplicationContext(), signup_screen.class);
+                finish();
                 startActivity(signup_screen);
             }
         });
@@ -92,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
                             //takes user to app home screen
                             Toast.makeText(MainActivity.this, "Correct Password", Toast.LENGTH_SHORT).show();
                             Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                            //Pass the username as an extra (used in the settings screen)
+                            EditText username_input = findViewById(R.id.signin_email);  //Find the username input field
+                            String username = username_input.getText().toString();                          //Get its current value and store it as a string -- so we can pass it to Forgot Password screen
+                            home_screen.putExtra("username",username);                          //Then we can add that information to our intent (to pass it)
+                            finish();
                             startActivity(home_screen);
                         }
                     } catch (Exception e) {
@@ -101,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     private static final String TAG = "MyApplication";

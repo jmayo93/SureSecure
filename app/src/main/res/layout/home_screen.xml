@@ -24,15 +24,16 @@
 
     <TextView
         android:id="@+id/addNewPass"
-        android:layout_width="283dp"
-        android:layout_height="127dp"
+        android:layout_width="400dp"
+        android:layout_height="40dp"
         android:text="@string/addNewPass"
-        android:textSize="45sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.909"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintVertical_bias="0.06" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accounts_recyclerView"
@@ -42,7 +43,7 @@
         app:layout_constraintBottom_toTopOf="@+id/settings_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/addNewPass" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

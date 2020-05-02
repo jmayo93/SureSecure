@@ -2,6 +2,7 @@ package com.pm.suresecure;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class changePass extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class changePass extends AppCompatActivity {
                     Toast.makeText(changePass.this, "Password Changed Successfully", Toast.LENGTH_SHORT).show();
                     //After that we can return to the homescreen
                     Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);      //Declare our new intent
+                    finish();
                     startActivity(mainActivity);                                                //Go to the changePass screen
 
                 }

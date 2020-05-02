@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -145,11 +149,54 @@ public class Database extends SQLiteOpenHelper {
         return secAnswer;
     }
 
+    public JSONArray getCredentials(String URL){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        JSONArray JA = new JSONArray();                                                             //Declare the JSONArray we will return
+
+        Cursor cursor = db.rawQuery("SELECT USER_NAME,PASSWORD FROM ACCOUNTS WHERE URL LIKE '"+URL +"'", null);    //Perform the SQL Query
+        //move cursor to the first value, otherwise it's positioned at -1 causing errors
+       // getThis.moveToFirst();
+        //for each one of the values returned, im going to want to append a new json oject
+        try {
+            while (cursor.moveToNext()) {
+                JSONObject JO = new JSONObject();
+                try {
+                    JO.put("username", cursor.getString(1));
+                    JO.put("password", cursor.getString(2));
+                }catch(Throwable t){
+                    Log.e("MyApp","Error GetCredentials->JO Put");
+
+                }
+
+                JA.put(JO);
+            }
+        } finally {
+            cursor.close();
+        }
+
+
+
+
+        return JA;
+    }
+
     public void RecoverPassword(String username, String newPass){
         SQLiteDatabase db = this.getReadableDatabase();
         //Query the MASTER table, update the password columns where the username matches the one provided.
         db.execSQL("UPDATE MASTER SET PASSWORD='" + newPass + "' WHERE USER_NAME ='" +username +"'");
     }
+
+    public void changeEmail(String username, String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("UPDATE MASTER SET EMAIL='" + email + "' WHERE USER_NAME ='" +username +"'");
+    }
+
+    public void changePhone(String username, String phoneNum){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("UPDATE MASTER SET PHONE_NUM='" + phoneNum + "' WHERE USER_NAME ='" +username +"'");
+    }
+
 
 
     public ArrayList<String> returnList(){

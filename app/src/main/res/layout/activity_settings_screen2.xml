@@ -6,7 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".SettingsScreen">
 
+    <TextView
+        android:id="@+id/getIPAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
+        android:text="IP address of your Device"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        tools:layout_editor_absoluteX="62dp" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="409dp"
         android:layout_height="600dp"
         android:layout_marginTop="1dp"
@@ -16,12 +30,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="120dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/pageTitle"
@@ -55,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#4267b2"
-            android:text="Home" />
+            android:text="Return" />
 
         <Button
             android:id="@+id/changeEmail"
@@ -74,6 +90,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Set Biometrics" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
