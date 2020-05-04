@@ -13,6 +13,17 @@ public class add_password extends AppCompatActivity {
     Database myDb;
 
     @Override
+    public void onBackPressed(){
+        Intent intent=getIntent();  //Get the current intent
+        final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
+        Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+        home_screen.putExtra("username",username);
+        finish();
+        startActivity(home_screen);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent=getIntent();  //Get the current intent
         final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
@@ -70,6 +81,7 @@ public class add_password extends AppCompatActivity {
                         if (isInserted == true) {
                             Toast.makeText(add_password.this, "An instance of account \n" + entry_name[0] + " was created", Toast.LENGTH_SHORT).show();
                             Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                            home_screen.putExtra("username",username);
                             finish();
                             startActivity(home_screen);
                         } else

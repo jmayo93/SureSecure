@@ -11,8 +11,12 @@ import android.widget.Toast;
 
 public class password_info_screen extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent=getIntent();  //Get the current intent
+        final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_info_screen);
         final Database db = new Database(this);
@@ -37,6 +41,7 @@ public class password_info_screen extends AppCompatActivity {
                     db.deleteRecord(id);
                     Toast.makeText(password_info_screen.this, "Record Removed", Toast.LENGTH_SHORT).show();
                     Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                    home_screen.putExtra("username",username);
                     finish();
                     startActivity(home_screen);
                 }

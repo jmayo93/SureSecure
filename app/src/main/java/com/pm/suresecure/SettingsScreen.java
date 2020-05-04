@@ -16,9 +16,13 @@ public class SettingsScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent(getApplicationContext(), home_screen.class);
+        Intent intent=getIntent();  //Get the current intent
+        final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
+        Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+        home_screen.putExtra("username",username);
         finish();
-        startActivity(intent);
+        startActivity(home_screen);
+
     }
 
     @Override
@@ -40,6 +44,7 @@ public class SettingsScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), home_screen.class);
+                intent.putExtra("username",username);
                 finish();
                 startActivity(intent);
             }

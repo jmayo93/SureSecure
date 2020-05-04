@@ -22,6 +22,14 @@ import java.util.ArrayList;
 public class home_screen extends AppCompatActivity{
     private static final String TAG = "home_screen";
 
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        finish();
+        startActivity(intent);
+
+    }
+
     Database db;
     ArrayList<String> mNames = new ArrayList<String>();
     @Override
