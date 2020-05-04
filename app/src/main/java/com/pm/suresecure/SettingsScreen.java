@@ -1,9 +1,11 @@
 package com.pm.suresecure;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.Log;
@@ -89,11 +91,10 @@ public class SettingsScreen extends AppCompatActivity {
         });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingsScreen.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                finishAndRemoveTask();                                                              //Close all tasks and shut down the application
             }
         });
 

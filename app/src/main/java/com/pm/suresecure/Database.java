@@ -156,12 +156,15 @@ public class Database extends SQLiteOpenHelper {
         return secAnswer;
     }
 
-    public JSONArray getCredentials(String URL){
+    public JSONArray getCredentials(String URL, String username){
         SQLiteDatabase db = this.getReadableDatabase();
+        System.out.println(URL);
+        System.out.println(username);
+        System.out.println("Performing query");
 
         JSONArray JA = new JSONArray();                                                             //Declare the JSONArray we will return
 
-        Cursor cursor = db.rawQuery("SELECT USER_NAME,PASSWORD FROM ACCOUNTS WHERE URL LIKE '"+URL +"'", null);    //Perform the SQL Query
+        Cursor cursor = db.rawQuery("SELECT USER_NAME,PASSWORD FROM ACCOUNTS WHERE URL LIKE '"+URL +"' AND OWNER='" + username +"'", null);    //Perform the SQL Query
         //move cursor to the first value, otherwise it's positioned at -1 causing errors
        // getThis.moveToFirst();
         //for each one of the values returned, im going to want to append a new json oject
