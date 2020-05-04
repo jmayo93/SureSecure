@@ -1,10 +1,12 @@
 package com.pm.suresecure;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -20,6 +22,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<String> accountBNames;
     private Context mContext;
+
 
     public RecyclerViewAdapter(ArrayList<String> accountNames, Context context) {
         accountBNames = accountNames;
@@ -43,8 +46,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked on: " + accountBNames.get(position));
                 Toast.makeText(mContext, accountBNames.get(position), Toast.LENGTH_SHORT).show();
+                //String name = accountBNames.get(position);
+                Intent password_info_screen = new Intent(mContext, password_info_screen.class);
+                password_info_screen.putExtra("com.pm.suresecure.SOMETHING", accountBNames.get(position));
+                mContext.startActivity(password_info_screen);
             }
-
         });
 
     }

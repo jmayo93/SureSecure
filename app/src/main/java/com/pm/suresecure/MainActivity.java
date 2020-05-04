@@ -4,13 +4,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.java_websocket.WebSocket;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+
 public class MainActivity extends AppCompatActivity {
+
+    @Override
+    public void onBackPressed() {
+        Log.e("MyApp","back button pressed");
+        Toast.makeText(this, "exiting", Toast.LENGTH_SHORT).show();
+        finish();
+        System.exit(0);
+
+    }
 
     //declare 'Database variable'
     Database myDb;
@@ -18,17 +37,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         //create new instance of a database
         myDb = new Database(this);
         System.out.println("Test");
         TextView signup_text = findViewById(R.id.signup_text);
         TextView FP_text = findViewById(R.id.FP_text);
-        Button login_Btn = findViewById(R.id.Login_Btn);
+        Button login_Btn = findViewById(R.id.login_Btn);
 
         signup_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //sets signup to go to sign up screen when clicked
                 Intent signup_screen = new Intent(getApplicationContext(), signup_screen.class);
+                finish();
                 startActivity(signup_screen);
             }
         });
@@ -36,8 +59,18 @@ public class MainActivity extends AppCompatActivity {
         FP_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { //sets forgot password to go to forgot password screen when clicked
-                Intent PWrecover_Screen = new Intent(getApplicationContext(), PWrecover_screen.class);
-                startActivity(PWrecover_Screen);
+                Intent PWrecover_Screen = new Intent(getApplicationContext(), PWrecover_screen.class);      //Declare our new intent
+
+                EditText username_input = findViewById(R.id.signin_email);  //Find the username input field
+                if(username_input.getText().toString().isEmpty()){                                  //If the username is left blank, we cant continue and must alert the user
+                    Toast.makeText(MainActivity.this, "username is empty", Toast.LENGTH_SHORT).show();
+                }
+                else{                                                                               //Otherwise, the username isnt blank so we can continue.
+                    String username = username_input.getText().toString();                          //Get its current value and store it as a string -- so we can pass it to Forgot Password screen
+                    PWrecover_Screen.putExtra("username",username);                          //Then we can add that information to our intent (to pass it)
+                    startActivity(PWrecover_Screen);                                                //Go to the PW_Recover_Screen
+                }
+
             }
         });
         login_Btn.setOnClickListener(new View.OnClickListener() { //when login button clicked
@@ -65,12 +98,26 @@ public class MainActivity extends AppCompatActivity {
                     String email = signin_email.getText().toString();
                     String pass = signin_pass.getText().toString();
                     try {
-                        if (pass.equals(myDb.getValues(email, "PASSWORD")) == false) {
+                        if (pass.equals(myDb.getUserValues(email, "PASSWORD")) == false) {
                             Toast.makeText(MainActivity.this, "Wrong password, \n please try again.", Toast.LENGTH_SHORT).show();
                         } else {
                             //takes user to app home screen
                             Toast.makeText(MainActivity.this, "Correct Password", Toast.LENGTH_SHORT).show();
                             Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                            //Pass the username as an extra (used in the settings screen)
+                            EditText username_input = findViewById(R.id.signin_email);  //Find the username input field
+                            String username = username_input.getText().toString();                          //Get its current value and store it as a string -- so we can pass it to Forgot Password screen
+                            home_screen.putExtra("username",username);                          //Then we can add that information to our intent (to pass it)
+                            finish();
+                            try{
+                                //start the websocket server
+                                startServer();
+
+                            }
+                            catch(Throwable T){
+                                Toast.makeText(MainActivity.this, "unable to start web socket server -- please relaunch", Toast.LENGTH_SHORT).show();
+                                Log.e("SurSecure",T.toString());
+                            }
                             startActivity(home_screen);
                         }
                     } catch (Exception e) {
@@ -79,4 +126,52 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }}
+    }
+
+
+
+
+    private static final String TAG = "MyApplication";
+    private static final int SERVER_PORT = 12345;
+
+    private MySocketServer mServer;
+
+
+    private void startServer() {
+        InetAddress inetAddress = getInetAddress();
+        if (inetAddress == null) {
+            Log.e(TAG, "Unable to lookup IP address");
+            return;
+        }
+
+        Database mydb = new Database(this);
+
+        mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT), mydb);
+        mServer.start();
+    }
+
+    private static InetAddress getInetAddress() {
+        try {
+            for (Enumeration en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface networkInterface = (NetworkInterface) en.nextElement();
+
+                for (Enumeration enumIpAddr = networkInterface.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = (InetAddress) enumIpAddr.nextElement();
+
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        return inetAddress;
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+            Log.e(TAG, "Error getting the network interface information");
+        }
+
+        return null;
+    }
+
+
+
+
+}

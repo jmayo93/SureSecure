@@ -6,32 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".signup_screen">
 
-    <TextView
-        android:id="@+id/welcome_text"
-        android:layout_width="167dp"
-        android:layout_height="52dp"
-        android:text="@string/welcome"
-        android:textSize="35sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+    <EditText
+        android:id="@+id/signup_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/phone"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.633" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_pass2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="283dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="68dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="52dp"
         android:autoText="false"
         android:editable="false"
         android:fitsSystemWindows="false"
         android:focusableInTouchMode="false"
         android:text="@string/please_enter_info"
-        android:textSize="30sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/signup_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -46,18 +44,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/signup_pass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/signup_pass_hint"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/signup_pass2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,41 +55,6 @@
         app:layout_constraintTop_toBottomOf="@+id/signup_pass" />
 
     <EditText
-        android:id="@+id/signup_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/phone"
-        android:inputType="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pass2" />
-
-    <Button
-        android:id="@+id/next_Btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/signup_next_Btn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_phone"
-        app:layout_constraintVertical_bias="0.78" />
-
-    <TextView
-        android:id="@+id/phone_message"
-        android:layout_width="325dp"
-        android:layout_height="74dp"
-        android:text="@string/phone_message"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup_pass2"
-        app:layout_constraintVertical_bias="0.437" />
-
-    <EditText
         android:id="@+id/signup_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -113,4 +64,78 @@
         app:layout_constraintBottom_toTopOf="@+id/signup_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/signup_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/signup_pass_hint"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.281" />
+
+    <Button
+        android:id="@+id/next_Btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_next_Btn"
+        android:textColor="#edf0f5"
+        android:background="#4267b2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_phone"
+        app:layout_constraintVertical_bias="0.78" />
+
+    <TextView
+        android:id="@+id/secPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginRight="51dp"
+        android:text="Please create a recovery question and password:"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_phone" />
+
+    <EditText
+        android:id="@+id/secQuestion"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:ems="10"
+        android:hint="Security Question"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secPrompt" />
+
+    <EditText
+        android:id="@+id/secAnswer"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:ems="10"
+        android:hint="Answer"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/secQuestion" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
