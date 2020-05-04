@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+
 public class Database extends SQLiteOpenHelper {
     public static final String ACCOUNTS_DB = "Yew.db";
     public static final String TABLE_NAME = "ACCOUNTS";
@@ -168,8 +169,8 @@ public class Database extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 JSONObject JO = new JSONObject();
                 try {
-                    JO.put("username", cursor.getString(1));
-                    JO.put("password", cursor.getString(2));
+                    JO.put("username", cursor.getString(0));
+                    JO.put("password", cursor.getString(1));
                 }catch(Throwable t){
                     Log.e("MyApp","Error GetCredentials->JO Put");
 

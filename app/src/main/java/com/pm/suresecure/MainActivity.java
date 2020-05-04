@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //start the websocket server
-        startServer();
+
 
 
         //create new instance of a database
@@ -110,6 +109,15 @@ public class MainActivity extends AppCompatActivity {
                             String username = username_input.getText().toString();                          //Get its current value and store it as a string -- so we can pass it to Forgot Password screen
                             home_screen.putExtra("username",username);                          //Then we can add that information to our intent (to pass it)
                             finish();
+                            try{
+                                //start the websocket server
+                                startServer();
+
+                            }
+                            catch(Throwable T){
+                                Toast.makeText(MainActivity.this, "unable to start web socket server -- please relaunch", Toast.LENGTH_SHORT).show();
+                                Log.e("SurSecure",T.toString());
+                            }
                             startActivity(home_screen);
                         }
                     } catch (Exception e) {
@@ -136,7 +144,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT));
+        Database mydb = new Database(this);
+
+        mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT), mydb);
         mServer.start();
     }
 
@@ -160,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
         return null;
     }
+
+
 
 
 }
