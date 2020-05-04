@@ -44,6 +44,7 @@ public class home_screen extends AppCompatActivity{
             public void onClick(View v) {
                 Intent add_pass_screen = new Intent(getApplicationContext(), add_password.class);
                 finish();
+                add_pass_screen.putExtra("username",username);
                 startActivity(add_pass_screen);
             }
         });
@@ -61,11 +62,18 @@ public class home_screen extends AppCompatActivity{
         initRecyclerView();
     }
     private void initRecyclerView(){
-        mNames.addAll(db.returnList());
-        RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        try {
+            Intent intent = getIntent();  //Get the current intent
+            final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
+            mNames.addAll(db.returnList(username));
+            RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
+        catch(Throwable T){
+            Log.e("MyApp",T.toString());
+        }
     }
 }
 

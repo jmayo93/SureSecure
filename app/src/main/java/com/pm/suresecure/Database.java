@@ -13,6 +13,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Database extends SQLiteOpenHelper {
     public static final String ACCOUNTS_DB = "Yew.db";
@@ -23,6 +25,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String COL_4 = "PASSWORD" ;
     public static final String COL_5 = "URL" ;
     public static final String COL_6 = "CREAT_DATE" ;
+    public static final String COL_7 = "Owner" ;
 
     //NEED TO GO INTO A SEPERATE TABLE
     public static final String M_TABLE_NAME = "MASTER";
@@ -44,7 +47,7 @@ public class Database extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //table to store seperate accounts user wants to save
-        db.execSQL("CREATE TABLE ACCOUNTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT TEXT, USER_NAME TEXT, PASSWORD TEXT, URL TEXT, CREAT_DATE TEXT)");
+        db.execSQL("CREATE TABLE ACCOUNTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT TEXT, USER_NAME TEXT, PASSWORD TEXT, URL TEXT, CREAT_DATE TEXT, OWNER TEXT)");
         //db.execSQL("CREATE TABLE " + ACCOUNTS_DB + " ("+ COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
         //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
         //Table to store master info
@@ -73,13 +76,16 @@ public class Database extends SQLiteOpenHelper {
             return false;
     }
     // insert data for seperate accounts user wants to store data for
-    public boolean insertAccountData(String siteName, String siteURL, String userName, String password){
+    public boolean insertAccountData(String siteName, String siteURL, String userName, String password, String owner){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues record = new ContentValues();
         record.put(COL_2, siteName);
         record.put(COL_3, userName);
         record.put(COL_4, password);
         record.put(COL_5, siteURL);
+        Date currentTime = Calendar.getInstance().getTime();
+        record.put(COL_6, currentTime.toString());
+        record.put(COL_7, owner);
         long answer = db.insert(TABLE_NAME, null, record );
 
         if(answer > 0)
@@ -197,11 +203,15 @@ public class Database extends SQLiteOpenHelper {
         db.execSQL("UPDATE MASTER SET PHONE_NUM='" + phoneNum + "' WHERE USER_NAME ='" +username +"'");
     }
 
-
-
-    public ArrayList<String> returnList(){
+    public void deleteRecord(String ID){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor theGoods = db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME,  null);
+        db.execSQL("DELETE FROM ACCOUNTS WHERE ID='"+ID+"'");
+    }
+
+
+    public ArrayList<String> returnList(String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor theGoods = db.rawQuery("SELECT " + COL_2 + " FROM " + TABLE_NAME + " WHERE OWNER='" +username +"'",  null);
         theGoods.moveToFirst();
         ArrayList<String> finishedProduct = new ArrayList<>();
         int i;

@@ -69,6 +69,7 @@ public class signup_screen extends AppCompatActivity {
                 else
                     Toast.makeText(signup_screen.this, "Data not inserted", Toast.LENGTH_LONG).show();
                 Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                finish();
                 startActivity(home_screen);
             }
         });

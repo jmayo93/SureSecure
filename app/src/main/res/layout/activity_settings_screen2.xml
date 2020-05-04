@@ -86,12 +86,6 @@
             android:text="Change Mobile Number" />
 
         <Button
-            android:id="@+id/biometricsSetup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Set Biometrics" />
-
-        <Button
             android:id="@+id/logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

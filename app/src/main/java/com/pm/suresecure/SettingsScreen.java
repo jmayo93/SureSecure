@@ -33,7 +33,6 @@ public class SettingsScreen extends AppCompatActivity {
         Button changeMasterPasswordButton = findViewById(R.id.changeMasterPassword);
         Button changeEmailButton = findViewById(R.id.changeEmail);
         Button changePhoneNumberButton = findViewById(R.id.changePhoneNumber);
-        Button biometricsSetupButton = findViewById(R.id.biometricsSetup);
         Button logoutButton = findViewById(R.id.logout);
 
 
@@ -81,14 +80,6 @@ public class SettingsScreen extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), changePhone.class);
                 intent.putExtra("username",username);                                           //Well have to pass the current user for this
                 startActivity(intent);
-            }
-        });
-
-        biometricsSetupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //startActivity(intent);
             }
         });
 

@@ -14,6 +14,8 @@ public class add_password extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent=getIntent();  //Get the current intent
+        final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_password);
         myDb = new Database(this);
@@ -64,10 +66,11 @@ public class add_password extends AppCompatActivity {
                 }
                 else {
                     if (web_pass[0].equals(web_passCheck[0]) == true) {
-                        boolean isInserted = myDb.insertAccountData(entry_name[0], web_name[0], web_usrName[0], web_pass[0]);
+                        boolean isInserted = myDb.insertAccountData(entry_name[0], web_name[0], web_usrName[0], web_pass[0], username);
                         if (isInserted == true) {
                             Toast.makeText(add_password.this, "An instance of account \n" + entry_name[0] + " was created", Toast.LENGTH_SHORT).show();
                             Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                            finish();
                             startActivity(home_screen);
                         } else
                             Toast.makeText(add_password.this, "Your instance of account \n" + entry_name[0] + " wasn't created.\n Please try again", Toast.LENGTH_SHORT).show();
