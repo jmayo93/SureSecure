@@ -56,21 +56,22 @@ public class signup_screen extends AppCompatActivity {
                     return;
                 }
                 //future: Check here to see if user name is already registered
-                Intent confirm_page = new Intent(getApplicationContext(), confirm_page.class);
+                Intent Main = new Intent(getApplicationContext(), MainActivity.class);
                 System.out.println("We got to the create user call");
                 createUser();
-                startActivity(confirm_page);
+                startActivity(Main);
             }
             public void createUser()
             {
                 boolean isInserted = myDb.insertMasterData(accept_userName[0],accept_email[0], accept_pass[0], accept_phone[0], accept_secQuestion[0], accept_secAnswer[0]);
-                if (isInserted == true)
-                    Toast.makeText(signup_screen.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                if (isInserted == true) {
+                    //Toast.makeText(signup_screen.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                }
                 else
                     Toast.makeText(signup_screen.this, "Data not inserted", Toast.LENGTH_LONG).show();
-                Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
+                Intent Main = new Intent(getApplicationContext(), MainActivity.class);
                 finish();
-                startActivity(home_screen);
+                startActivity(Main);
             }
         });
     }

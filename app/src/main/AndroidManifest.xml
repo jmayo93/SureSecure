@@ -18,8 +18,6 @@
         <activity android:name=".password_info_screen" />
         <activity android:name=".add_password" />
         <activity android:name=".SettingsScreen" />
-        <activity android:name=".success_screen" />
-        <activity android:name=".confirm_page" />
         <activity android:name=".home_screen" />
         <activity android:name=".PWrecover_screen" />
         <activity android:name=".signup_screen" />
