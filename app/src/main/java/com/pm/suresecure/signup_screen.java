@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import javax.crypto.*;
 
 public class signup_screen extends AppCompatActivity {
 
     Database myDb;
+    encryption e = new encryption();
     EditText addUserName, addEmail, addPassword, addPhone, addPassword2;
 
     @Override
@@ -57,6 +59,7 @@ public class signup_screen extends AppCompatActivity {
             public void createUser()
             {
                 boolean isInserted = myDb.insertMasterData(accept_userName[0],accept_email[0], accept_pass[0], accept_phone[0]);
+                myDb.insertKeyData("first", e.generateKey("AES"));
                 if (isInserted == true)
                     Toast.makeText(signup_screen.this, "Data Inserted", Toast.LENGTH_LONG).show();
                 else

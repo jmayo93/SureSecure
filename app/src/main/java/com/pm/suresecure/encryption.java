@@ -6,24 +6,25 @@ public class encryption {
 
     private String UNICODE = "UTF-8";
 
-
     SecretKey k = generateKey("AES");
+    public Cipher ciph;
 
-    public static Cipher ciph() {
+    /*public static Cipher ciph() {
         try {
-            Cipher cipher;
-            cipher = Cipher.getInstance("AES");
+            //Cipher cipher;
+
             return cipher;
         } catch (Exception e) {
             return null;
         }
-    }
+    }*/
 
 
 
 
-        public static SecretKey generateKey(String encryptionType) {
+        public SecretKey generateKey(String encryptionType) {
         try {
+            ciph = Cipher.getInstance("AES");
             KeyGenerator kg = KeyGenerator.getInstance(encryptionType);
             SecretKey key = kg.generateKey();
             return key;
@@ -48,7 +49,7 @@ public class encryption {
         try {
             cipher.init(Cipher.DECRYPT_MODE, myKey);
             byte[] textDecrypted = cipher.doFinal(dataToDecrypt);
-            String result = new String(textDecrypted);
+            String result = textDecrypted.toString();
             return result;
         } catch (Exception e) {
             return null;

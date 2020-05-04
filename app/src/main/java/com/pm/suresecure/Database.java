@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Base64;
+
+import javax.crypto.*;
 
 import androidx.annotation.Nullable;
 
@@ -28,6 +31,10 @@ public class Database extends SQLiteOpenHelper {
     public static final String M_COL_4= "EMAIL" ;
     public static final String M_COL_5= "IP_ADDRESS" ;
     public static final String M_COL_6= "CREAT_DATE" ;
+
+    public static final String KEY_TABLE_NAME = "UNLOCK";
+    public static final String KEY_COL_1 = "THE_ONLY";
+    public static final String KEY_COL_2 = "SECRET_KEY";
     public Database(@Nullable Context context) {
         //use function from parent class
         super(context, ACCOUNTS_DB,null, 1);
@@ -39,9 +46,10 @@ public class Database extends SQLiteOpenHelper {
         //table to store seperate accounts user wants to save
         db.execSQL("CREATE TABLE ACCOUNTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ACCOUNT TEXT, USER_NAME TEXT, PASSWORD TEXT, URL TEXT, CREAT_DATE TEXT)");
         //db.execSQL("CREATE TABLE " + ACCOUNTS_DB + " ("+ COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
+        //+ COL_2 +" TEXT, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
         //Table to store master info
         db.execSQL("CREATE TABLE MASTER (USER_NAME TEXT, PASSWORD TEXT, PHONE_NUM TEXT, EMAIL TEXT, IP TEXT, CREAT_DATE TEXT)");
+        db.execSQL("CREATE TABLE UNLOCK (THE_ONLY TEXT, SECRET_KEY TEXT)");
     }
 
     @Override
@@ -50,7 +58,7 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
     public boolean insertMasterData(String userName,String email, String pw, String phoneNum)  {
-        SQLiteDatabase db = this.getWritableDatabase(); 
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues M_record = new ContentValues();
         M_record.put(M_COL_1, userName);
         M_record.put(M_COL_2, pw);
@@ -78,6 +86,19 @@ public class Database extends SQLiteOpenHelper {
             return false;
 
     }
+
+    public boolean insertKeyData(String first, SecretKey key)  {
+        String stringKey = Base64.encodeToString(key.getEncoded(), Base64.DEFAULT);
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues KEY_record = new ContentValues();
+        KEY_record.put(KEY_COL_1, first);
+        KEY_record.put(KEY_COL_2, stringKey);
+        long KEY_answer = db.insert(KEY_TABLE_NAME, null, KEY_record);
+        if(KEY_answer > 0)
+            return true;
+        else
+            return false;
+    }
     //Query Database by username and return Value that you need
     public String getUserValues(String user, String need){
         //only need to read from database
@@ -94,7 +115,22 @@ public class Database extends SQLiteOpenHelper {
         return whatINeeded;
     }
 
-    public String getPassValues(String site, String need){
+    public String getKey(String first, String key){
+        //only need to read from database
+        SQLiteDatabase db = this.getReadableDatabase();
+        String whatINeeded;
+        //get all values from table if user name exists
+        Cursor getThis = db.rawQuery("SELECT "+ key +  "  FROM " + KEY_TABLE_NAME + " WHERE THE_ONLY = '" + first + "'" , null);
+        //move cursor to the first value, otherwise it's positioned at -1 causing errors
+        getThis.moveToFirst();
+        //store the value of a requested column as a string
+        //inner function returns index via string argument
+        //outer function returns string via int (the index of the column in table) argument
+        whatINeeded = getThis.getString(getThis.getColumnIndex(key));
+        return whatINeeded;
+    }
+
+    public String getSiteValues(String site, String need){
         //only need to read from database
         SQLiteDatabase db = this.getReadableDatabase();
         String whatINeeded;
@@ -115,12 +151,12 @@ public class Database extends SQLiteOpenHelper {
         ArrayList<String> finishedProduct = new ArrayList<>();
         int i;
         /**
-        for(theGoods.moveToFirst(); !theGoods.isAfterLast(); theGoods.moveToNext()){
-            finishedProduct.add(theGoods.getString(i));
-            System.out.println(theGoods.getString(i));
-            i++;
-        }**/
-
+         for(theGoods.moveToFirst(); !theGoods.isAfterLast(); theGoods.moveToNext()){
+         finishedProduct.add(theGoods.getString(i));
+         System.out.println(theGoods.getString(i));
+         i++;
+         }**/
+        //loop through cursor item and add each item to the Array<String> list
         for(i = 0; !theGoods.isAfterLast(); i++)
         {
             finishedProduct.add(theGoods.getString(theGoods.getColumnIndex(COL_2)));

@@ -4,13 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 
 public class add_password extends AppCompatActivity {
     Database myDb;
+    encryption e = new encryption();
+    //SecretKey k = e.generateKey("AES");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +46,20 @@ public class add_password extends AppCompatActivity {
                 web_pass[0] = addPass_password.getText().toString();
                 web_passCheck[0] = addPass_password2.getText().toString();
 
+
+
+
+
                 createAccountInstance();
 
                 //Intent home_screen = new Intent(getApplicationContext(), home_screen.class);
                 //startActivity(home_screen);
             }
             public void createAccountInstance(){
+                byte[] encodedKey = Base64.decode(myDb.getKey("first", "SECRET_KEY"), Base64.DEFAULT);
+                SecretKey originalKey = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
+                byte[] pass = e.encryptString(web_pass[0], originalKey, e.ciph);
+                String encryptedPass = new String(pass);
                 if(entry_name[0].isEmpty() == true){
                     Toast.makeText(add_password.this, "Account name is empty.", Toast.LENGTH_SHORT).show();
                     return;
@@ -64,6 +78,7 @@ public class add_password extends AppCompatActivity {
                 }
                 else {
                     if (web_pass[0].equals(web_passCheck[0]) == true) {
+                        web_pass[0] = encryptedPass;
                         boolean isInserted = myDb.insertAccountData(entry_name[0], web_name[0], web_usrName[0], web_pass[0]);
                         if (isInserted == true) {
                             Toast.makeText(add_password.this, "An instance of account \n" + entry_name[0] + " was created", Toast.LENGTH_SHORT).show();
