@@ -111,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                             try{
                                 //start the websocket server
-                                startServer();
+                                System.out.println("username to pass to webSockerServer:\n");
+                                System.out.println(username);
+                                startServer(username);
 
                             }
                             catch(Throwable T){
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
     private MySocketServer mServer;
 
 
-    private void startServer() {
+    private void startServer(String username) {
         InetAddress inetAddress = getInetAddress();
         if (inetAddress == null) {
             Log.e(TAG, "Unable to lookup IP address");
@@ -146,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         Database mydb = new Database(this);
 
-        mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT), mydb);
+        mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT), mydb, username);
         mServer.start();
     }
 

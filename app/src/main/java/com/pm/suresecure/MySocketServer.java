@@ -17,10 +17,12 @@ public class MySocketServer extends WebSocketServer {
 
     private WebSocket mSocket;
     private Database mydb;
+    private String user;
 
-    public MySocketServer(InetSocketAddress address, Database db) {
+    public MySocketServer(InetSocketAddress address, Database db, String username) {
         super(address);
         mydb=db;
+        user=username;
     }
 
     public void sendMessage(String message) {
@@ -56,7 +58,7 @@ public class MySocketServer extends WebSocketServer {
             JSONObject reader = new JSONObject(message);                                            //Convert the incomming message to JSON Object
             String url = reader.getString("url");                                             //Get the value from the JSON Object
             url = url.replaceAll("www.","");                                      //We only want the base url, so strip the www part
-            JA = mydb.getCredentials(url);                                                          //Get the credentials from the database, store them in a JSON Array (which well send)
+            JA = mydb.getCredentials(url, user);                                                          //Get the credentials from the database, store them in a JSON Array (which well send)
             mSocket.send(JA.toString());
         }
         catch(Throwable t){                                                                         //Catch any errors converting message to JSON Object
