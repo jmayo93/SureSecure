@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.scottyab.aescrypt.AESCrypt;
+
+import java.security.GeneralSecurityException;
+
 public class add_password extends AppCompatActivity {
     Database myDb;
 
@@ -77,6 +81,11 @@ public class add_password extends AppCompatActivity {
                 }
                 else {
                     if (web_pass[0].equals(web_passCheck[0]) == true) {
+                        try {
+                            web_pass[0] = AESCrypt.encrypt(username, web_pass[0]);
+                        }catch (GeneralSecurityException e){
+                            //handle error
+                        }
                         boolean isInserted = myDb.insertAccountData(entry_name[0], web_name[0], web_usrName[0], web_pass[0], username);
                         if (isInserted == true) {
                             Toast.makeText(add_password.this, "An instance of account \n" + entry_name[0] + " was created", Toast.LENGTH_SHORT).show();

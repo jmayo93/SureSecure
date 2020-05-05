@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class home_screen extends AppCompatActivity{
     private static final String TAG = "home_screen";
 
+
     @Override
     public void onBackPressed(){
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -50,8 +51,11 @@ public class home_screen extends AppCompatActivity{
         addNewPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Username being send to addNewPass");
+                System.out.println(username);
                 Intent add_pass_screen = new Intent(getApplicationContext(), add_password.class);
                 finish();
+
                 add_pass_screen.putExtra("username",username);
                 startActivity(add_pass_screen);
             }
@@ -74,14 +78,17 @@ public class home_screen extends AppCompatActivity{
             Intent intent = getIntent();  //Get the current intent
             final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
             mNames.addAll(db.returnList(username));
+
             RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
-            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this, username);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         catch(Throwable T){
             Log.e("MyApp",T.toString());
         }
+
+
     }
 }
 

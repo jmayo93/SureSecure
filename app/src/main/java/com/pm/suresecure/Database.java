@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.scottyab.aescrypt.AESCrypt;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -168,12 +170,13 @@ public class Database extends SQLiteOpenHelper {
         //move cursor to the first value, otherwise it's positioned at -1 causing errors
        // getThis.moveToFirst();
         //for each one of the values returned, im going to want to append a new json oject
+        String messageAfterDecrypt;
         try {
             while (cursor.moveToNext()) {
                 JSONObject JO = new JSONObject();
                 try {
                     JO.put("username", cursor.getString(0));
-                    JO.put("password", cursor.getString(1));
+                    JO.put("password", AESCrypt.decrypt(username,cursor.getString(1)));
                 }catch(Throwable t){
                     Log.e("MyApp","Error GetCredentials->JO Put");
 
