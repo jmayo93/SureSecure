@@ -175,7 +175,7 @@ public class Database extends SQLiteOpenHelper {
                 JSONObject JO = new JSONObject();
                 try {
                     JO.put("username", cursor.getString(0));
-                    JO.put("password", AESCrypt.decrypt(username,cursor.getString(1)));
+                    JO.put("pass", AESCrypt.decrypt(username,cursor.getString(1)));
                 }catch(Throwable t){
                     Log.e("MyApp","Error GetCredentials->JO Put");
 
