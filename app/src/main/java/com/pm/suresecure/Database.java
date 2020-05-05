@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.scottyab.aescrypt.AESCrypt;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -173,7 +175,7 @@ public class Database extends SQLiteOpenHelper {
                 JSONObject JO = new JSONObject();
                 try {
                     JO.put("username", cursor.getString(0));
-                    JO.put("password", cursor.getString(1));
+                    JO.put("password", AESCrypt.decrypt(username,cursor.getString(1)));
                 }catch(Throwable t){
                     Log.e("MyApp","Error GetCredentials->JO Put");
 

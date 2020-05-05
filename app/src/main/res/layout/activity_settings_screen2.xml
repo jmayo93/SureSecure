@@ -49,17 +49,6 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/deleteMasterAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#4267b2"
-            android:text="Delete Master Account"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="0dp" />
-
-        <Button
             android:id="@+id/changeMasterPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

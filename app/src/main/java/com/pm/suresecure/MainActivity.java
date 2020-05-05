@@ -149,7 +149,14 @@ public class MainActivity extends AppCompatActivity {
         Database mydb = new Database(this);
 
         mServer = new MySocketServer(new InetSocketAddress(inetAddress.getHostAddress(), SERVER_PORT), mydb, username);
-        mServer.start();
+        try {
+            mServer.start();
+            Toast.makeText(this, "Web Socket Server launched", Toast.LENGTH_SHORT).show();
+        }
+        catch(Throwable T){
+            Log.e("MyApp",T.toString());
+            Toast.makeText(this, "Web Socket Server Failed to Load -- Please try again", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private static InetAddress getInetAddress() {

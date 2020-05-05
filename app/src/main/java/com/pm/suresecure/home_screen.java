@@ -79,7 +79,7 @@ public class home_screen extends AppCompatActivity{
             //query database and fill recycler view
             mNames.addAll(db.returnList(username));
             RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
-            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this,username);
             recyclerView.setAdapter(adapter);
             Log.d(TAG, "initRecyclerView: init recyclerview");
             recyclerView.setLayoutManager(new LinearLayoutManager(this));

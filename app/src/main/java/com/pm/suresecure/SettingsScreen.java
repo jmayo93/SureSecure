@@ -35,7 +35,7 @@ public class SettingsScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_screen2);
         Button homeButton = findViewById(R.id.homeButton);
-        Button deleteMasterAccountButton = findViewById(R.id.deleteMasterAccount);
+
         Button changeMasterPasswordButton = findViewById(R.id.changeMasterPassword);
         Button changeEmailButton = findViewById(R.id.changeEmail);
         Button changePhoneNumberButton = findViewById(R.id.changePhoneNumber);
@@ -52,14 +52,6 @@ public class SettingsScreen extends AppCompatActivity {
             }
         });
 
-        deleteMasterAccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Delete Everything??
-                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //startActivity(intent);
-            }
-        });
 
         changeMasterPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override

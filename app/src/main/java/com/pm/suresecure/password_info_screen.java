@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.scottyab.aescrypt.AESCrypt;
+
+import java.security.GeneralSecurityException;
 
 public class password_info_screen extends AppCompatActivity {
 
@@ -31,7 +36,15 @@ public class password_info_screen extends AppCompatActivity {
             TextView URLText = findViewById(R.id.URLText);
             siteText.setText("Site name: " + site);
             URLText.setText("Site Url: " + URL);
-            passText.setText("Site password: "  + pass);
+
+
+            String messageAfterDecrypt="";
+            try {
+                messageAfterDecrypt = AESCrypt.decrypt(username, pass);
+                passText.setText("Site Password: " +messageAfterDecrypt);
+            }catch (GeneralSecurityException e){
+                Log.e("myapp",e.toString());
+            }
 
             Button deleteButton = findViewById(R.id.deleteButton);
             deleteButton.setOnClickListener(new View.OnClickListener() {
