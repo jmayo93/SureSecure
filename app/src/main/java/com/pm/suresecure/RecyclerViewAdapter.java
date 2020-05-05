@@ -22,11 +22,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<String> accountBNames;
     private Context mContext;
+    private String username;
 
 
-    public RecyclerViewAdapter(ArrayList<String> accountNames, Context context) {
+    public RecyclerViewAdapter(ArrayList<String> accountNames, Context context, String user) {
         accountBNames = accountNames;
         mContext = context;
+        username = user;
     }
 
     @NonNull
@@ -49,6 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 //String name = accountBNames.get(position);
                 Intent password_info_screen = new Intent(mContext, password_info_screen.class);
                 password_info_screen.putExtra("com.pm.suresecure.SOMETHING", accountBNames.get(position));
+                password_info_screen.putExtra("username",username);
                 mContext.startActivity(password_info_screen);
             }
         });

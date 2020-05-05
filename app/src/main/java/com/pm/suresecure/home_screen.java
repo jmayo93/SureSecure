@@ -75,7 +75,7 @@ public class home_screen extends AppCompatActivity{
             final String username = intent.getStringExtra("username");        //Get the passed value and store it in a string
             mNames.addAll(db.returnList(username));
             RecyclerView recyclerView = findViewById(R.id.accounts_recyclerView);
-            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this);
+            RecyclerViewAdapter adapter = new RecyclerViewAdapter(mNames, this,username);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
